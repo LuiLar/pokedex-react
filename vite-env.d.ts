@@ -1,0 +1,7 @@
+interface ImportMetaEnv {
+  readonly VITE_POKEAPI_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
