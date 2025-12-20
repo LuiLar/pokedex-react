@@ -1,11 +1,10 @@
 import { useCallback, useRef, useEffect } from "react";
 import "./PokemonDetails.css";
 import { capitalizeWords } from "../utils/utils";
-import { usePokemonStore } from "../utils/pokemonStore";
+import { usePokemonStore, registerDialogRef } from "../utils/pokemonStore";
 
 const PokemonDetails = () => {
   const ref = useRef<HTMLDialogElement | null>(null);
-  const registerDialogRef = usePokemonStore((state) => state.registerDialogRef);
   const selectedPokemon = usePokemonStore((state) => state.selectedPokemon);
 
   useEffect(() => registerDialogRef(ref.current), [registerDialogRef]);

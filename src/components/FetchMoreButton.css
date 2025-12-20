@@ -1,0 +1,18 @@
+.fetchmore-button {
+  border: none;
+  padding: 40px;
+  margin: 20px 25%;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 5px;
+  grid-column: 2 / 4;
+  transition: transform 0.2s;
+}
+
+.fetchmore-button:hover {
+  transform: scale(1.05);
+}
+
+.fetchmore-button:active {
+  transform: scale(0.95);
+}

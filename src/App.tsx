@@ -2,20 +2,26 @@ import { useEffect } from "react";
 import "./App.css";
 import PokemonCard from "./components/PokemonCard";
 import PokemonDetails from "./components/PokemonDetails";
-import usePokemons from "./hooks/usePokemons";
-import { usePokemonStore } from "./utils/pokemonStore";
+import {
+  usePokemonStore,
+  fetchAndSavePokemonNames,
+  fetchNextPokemonBatch,
+} from "./utils/pokemonStore";
+import FetchMoreButton from "./components/FetchMoreButton";
 
 function App() {
-  const { pokemons } = usePokemons();
-  const { setPokemons, pokemons: storedPokemons } = usePokemonStore();
+  const { pokemons } = usePokemonStore();
 
-  useEffect(() => setPokemons(pokemons), [pokemons]);
+  useEffect(() => {
+    fetchAndSavePokemonNames().then(() => fetchNextPokemonBatch());
+  }, []);
 
   return (
     <main>
-      {storedPokemons.map((pokemon) => (
+      {pokemons.map((pokemon) => (
         <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
+      <FetchMoreButton />
       <PokemonDetails />
     </main>
   );
