@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchPokemonByUrl, fetchPokemons } from "../services/pokeApi";
-import { formatPokemonData } from "../utils/formatPokemonData";
+import { formatPokemonData } from "../utils/utils";
 
 const UsePokemons = () => {
   const [pokeApiData, setPokeApiData] = useState<AllPokemonsApiResponse>({

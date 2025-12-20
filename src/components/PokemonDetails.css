@@ -1,0 +1,16 @@
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+  width: 30%;
+}
+
+dialog h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+dialog img {
+  width: 100%;
+}

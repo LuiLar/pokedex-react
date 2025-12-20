@@ -3,7 +3,8 @@ type Pokemon = {
   name: string;
   height: number;
   weight: number;
-  imageUrl: string;
+  defaultSpriteURL: string;
+  shinySpriteURL: string;
 }
 
 type AllPokemonsApiResponse = {
@@ -17,5 +18,6 @@ type PokemonApiResponse = {
   weight: number;
   sprites: {
     front_default: string;
+    front_shiny: string;
   };
 }
