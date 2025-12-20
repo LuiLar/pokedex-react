@@ -1,17 +1,25 @@
+import { useCallback } from "react";
+import { usePokemonStore } from "../utils/pokemonStore";
 import { capitalizeWords } from "../utils/utils";
 import "./PokemonCard.css";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
-  onClickHandler: () => void;
 }
 
-const PokemonCard = ({ pokemon, onClickHandler }: PokemonCardProps) => {
-  const { name, defaultSpriteURL: imageUrl } = pokemon;
+const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+  const { name, defaultSpriteURL } = pokemon;
+  const openDialog = usePokemonStore((state) => state.openDialog);
+
+  const handleClick = useCallback(
+    () => openDialog(pokemon),
+    [openDialog, pokemon],
+  );
+
   return (
-    <button id="pokemon-card" onClick={onClickHandler}>
+    <button id="pokemon-card" onClick={handleClick}>
       <h1>{capitalizeWords(name)}</h1>
-      <img src={imageUrl} alt={name} />
+      <img src={defaultSpriteURL} alt={name} />
     </button>
   );
 };

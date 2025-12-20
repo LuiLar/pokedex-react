@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchPokemonByUrl, fetchPokemons } from "../services/pokeApi";
 import { formatPokemonData } from "../utils/utils";
+import { usePokemonStore } from "../utils/pokemonStore";
 
-const UsePokemons = () => {
+const usePokemons = () => {
   const [pokeApiData, setPokeApiData] = useState<AllPokemonsApiResponse>({
     results: [],
   });
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const pokemons = usePokemonStore((state) => state.pokemons);
+  const setPokemons = usePokemonStore((state) => state.setPokemons);
 
   useEffect(() => {
     fetchPokemons()
@@ -15,6 +17,7 @@ const UsePokemons = () => {
   }, []);
 
   useEffect(() => {
+    const resolvedPokemons: Pokemon[] = [];
     const promises: Promise<PokemonApiResponse>[] = [];
 
     pokeApiData.results.forEach(({ url }) =>
@@ -24,13 +27,14 @@ const UsePokemons = () => {
     Promise.all(promises)
       .then((pokemonData) => {
         pokemonData.forEach((pokemon) =>
-          setPokemons((prev) => [...prev, formatPokemonData(pokemon)]),
+          resolvedPokemons.push(formatPokemonData(pokemon)),
         );
       })
-      .catch((error) => console.error(error));
-  }, [pokeApiData]);
+      .catch((error) => console.error(error))
+      .finally(() => setPokemons(resolvedPokemons));
+  }, [pokeApiData, setPokemons]);
 
   return { pokemons };
 };
 
-export default UsePokemons;
+export default usePokemons;

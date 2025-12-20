@@ -1,17 +1,18 @@
-import { useCallback } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import "./PokemonDetails.css";
 import { capitalizeWords } from "../utils/utils";
+import { usePokemonStore } from "../utils/pokemonStore";
 
-interface PokemonDetailsProps {
-  ref: React.RefObject<HTMLDialogElement | null>;
-  pokemonData?: Pokemon | null;
-}
+const PokemonDetails = () => {
+  const ref = useRef<HTMLDialogElement | null>(null);
+  const registerDialogRef = usePokemonStore((state) => state.registerDialogRef);
+  const selectedPokemon = usePokemonStore((state) => state.selectedPokemon);
 
-const PokemonDetails = ({ ref, pokemonData }: PokemonDetailsProps) => {
+  useEffect(() => registerDialogRef(ref.current), [registerDialogRef]);
+
   const onClickHandler = useCallback(
     (e: React.MouseEvent) => {
       const dimensions = ref.current?.getBoundingClientRect();
-
       if (!dimensions) return;
 
       if (
@@ -28,8 +29,8 @@ const PokemonDetails = ({ ref, pokemonData }: PokemonDetailsProps) => {
 
   return (
     <dialog ref={ref} onClick={onClickHandler}>
-      <h2>{capitalizeWords(pokemonData?.name || "")}</h2>
-      <img src={pokemonData?.shinySpriteURL} alt={pokemonData?.name} />
+      <h2>{capitalizeWords(selectedPokemon?.name || "")}</h2>
+      <img src={selectedPokemon?.shinySpriteURL} alt={selectedPokemon?.name} />
     </dialog>
   );
 };
