@@ -6,9 +6,11 @@ const FetchMoreButton = () => {
   const handleClick = useCallback(() => fetchNextPokemonBatch(), []);
 
   return (
-    <button className="fetchmore-button" onClick={handleClick}>
-      Fetch More
-    </button>
+    <div className="fetchmore-container">
+      <button className="fetchmore-button" onClick={handleClick}>
+        Fetch More
+      </button>
+    </div>
   );
 };
 

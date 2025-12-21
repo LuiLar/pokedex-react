@@ -6,6 +6,7 @@ import {
   usePokemonStore,
   fetchAndSavePokemonNames,
   fetchNextPokemonBatch,
+  isMorePokemonToFetch,
 } from "./utils/pokemonStore";
 import FetchMoreButton from "./components/FetchMoreButton";
 
@@ -18,10 +19,12 @@ function App() {
 
   return (
     <main>
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-      ))}
-      <FetchMoreButton />
+      <div className="pokemon-grid">
+        {pokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </div>
+      {isMorePokemonToFetch() && <FetchMoreButton />}
       <PokemonDetails />
     </main>
   );

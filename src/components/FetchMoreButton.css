@@ -1,11 +1,16 @@
+.fetchmore-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10%;
+}
+
 .fetchmore-button {
   border: none;
   padding: 40px;
-  margin: 20px 25%;
   font-size: 24px;
   cursor: pointer;
   border-radius: 5px;
-  grid-column: 2 / 4;
   transition: transform 0.2s;
 }
 

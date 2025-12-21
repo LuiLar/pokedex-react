@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { fetchPokemonByName, fetchPokemonNames } from '../services/pokeApi';
 import { formatPokemonData } from './utils';
 
-const BATCH_SIZE = import.meta.env.VITE_BATCH_SIZE as number ?? 20;
+const BATCH_SIZE = import.meta.env.VITE_BATCH_SIZE ?? 20;
 
 interface PokemonStore {
   currentBatch: number;
@@ -39,8 +39,9 @@ export const fetchNextPokemonBatch = () => {
   const pokemonQueryPromises: Promise<PokemonApiResponse>[] = [];
   const { currentBatch, pokemonNames, pokemons } = usePokemonStore.getState();
 
+  const maxIndex = pokemonNames.length - 1;
   const startIndex = currentBatch;
-  const endIndex = startIndex + +BATCH_SIZE;
+  const endIndex = maxIndex < startIndex + +BATCH_SIZE ? maxIndex : startIndex + +BATCH_SIZE;
 
   const nextBatchNames = pokemonNames.slice(startIndex, endIndex);
 
@@ -72,4 +73,9 @@ export const openDialog = (pokemonData: Pokemon) => {
 export const closeDialog = () => {
   usePokemonStore.getState().dialogRef?.close();
   usePokemonStore.setState({ selectedPokemon: null }, undefined, 'CLOSE_DIALOG');
+}
+
+export const isMorePokemonToFetch = (): boolean => {
+  const { currentBatch, pokemonNames } = usePokemonStore.getState();
+  return currentBatch < pokemonNames.length - 1;
 }

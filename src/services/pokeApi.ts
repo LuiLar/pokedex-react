@@ -1,8 +1,9 @@
-const POKEAPI_URL = import.meta.env.VITE_POKEAPI_URL as string;
+const POKEAPI_URL = import.meta.env.VITE_POKEAPI_URL ?? 'https://pokeapi.co/api/v2';
+const LIMIT = import.meta.env.VITE_POKEMON_LIMIT ?? 100000;
 
 export const fetchPokemonNames = async (): Promise<AllPokemonsApiResponse> => {
   try {
-    const response = await fetch(`${POKEAPI_URL}/pokemon?limit=100000`);
+    const response = await fetch(`${POKEAPI_URL}/pokemon?limit=${LIMIT}`);
 
     if (!response.ok) {
       throw new Error(`Error fetching pokemons: ${response.statusText}`);

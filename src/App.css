@@ -1,8 +1,50 @@
-main {
+.pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
   width: 100%;
   height: 100%;
-  margin-bottom: 10%;
+  margin-bottom: 60px;
+}
+
+@media screen and (min-width: 540px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1030px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1530px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media screen and (min-width: 1980px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+@media screen and (min-width: 3200px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
